@@ -14,6 +14,10 @@ struct DetailView: View {
     
     let book: Book
     
+    var formattedDate: String {
+        (book.date ?? Date.now).formatted(date: .long, time: .omitted)
+    }
+    
     var body: some View {
         ScrollView {
             ZStack(alignment: .bottomTrailing) {
@@ -40,6 +44,11 @@ struct DetailView: View {
             
             RatingView(rating: .constant(Int(book.rating)))
                 .font(.largeTitle)
+            
+            Text("Added on \(formattedDate)")
+                .padding(.top, 5)
+                .font(.footnote)
+                .foregroundColor(.secondary)
         }
         .navigationTitle(book.title ?? "Unknown Book")
         .navigationBarTitleDisplayMode(.inline)
